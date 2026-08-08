@@ -1,10 +1,16 @@
 import { Link } from "@tanstack/react-router";
-import { Bookmark, BookmarkCheck, CalendarDays, MessageSquare, MoreVertical, Pencil, Trash2 } from "lucide-react";
+import {
+  Bookmark,
+  BookmarkCheck,
+  CalendarDays,
+  MessageSquare,
+  MoreVertical,
+  Pencil,
+  Trash2,
+} from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
-
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { UserAvatar } from "@/components/shared/UserAvatar";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -15,20 +21,25 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import { UserAvatar } from "@/components/shared/UserAvatar";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { supabase } from "@/integrations/supabase/client";
-import { deleteUploadedImage } from "@/lib/uploads.functions";
 import { formatDate, formatRelative, friendlyError } from "@/lib/domain";
-import { cloudinaryThumb } from "@/lib/upload-client";
 import type { PostWithMeta } from "@/lib/queries";
 import { toggleBookmark } from "@/lib/queries";
+import { cloudinaryThumb } from "@/lib/upload-client";
+import { deleteUploadedImage } from "@/lib/uploads.functions";
 
 type Props = {
   post: PostWithMeta;
@@ -68,7 +79,9 @@ export function PostCard({
     setSavePending(true);
     try {
       await toggleBookmark(post.id, currentUserId, previous);
-      toast.success(previous ? "Removed from saved posts" : "Saved to your bookmarks");
+      toast.success(
+        previous ? "Removed from saved posts" : "Saved to your bookmarks",
+      );
       onChanged();
     } catch (error) {
       setSaved(previous); // optimistic rollback
@@ -84,7 +97,11 @@ export function PostCard({
       if (post.image_public_id) {
         try {
           await deleteUploadedImage({
-            data: { publicId: post.image_public_id, scope: "post", postId: post.id },
+            data: {
+              publicId: post.image_public_id,
+              scope: "post",
+              postId: post.id,
+            },
           });
         } catch (error) {
           console.warn("[post] image cleanup failed", error);
@@ -123,7 +140,11 @@ export function PostCard({
         {isOwner || isAdmin ? (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon" aria-label={`Actions for ${post.title}`}>
+              <Button
+                variant="ghost"
+                size="icon"
+                aria-label={`Actions for ${post.title}`}
+              >
                 <MoreVertical className="h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
@@ -177,12 +198,16 @@ export function PostCard({
       </div>
 
       {post.image_url ? (
-        <Link to="/posts/$postId" params={{ postId: post.id }} className="block">
+        <Link
+          to="/posts/$postId"
+          params={{ postId: post.id }}
+          className="block"
+        >
           <img
             src={cloudinaryThumb(post.image_url, 1000)}
             alt={`Photo of the lost item: ${post.title}`}
             loading="lazy"
-            className="max-h-96 w-full bg-muted object-cover"
+            className="aspect-4/3 w-full bg-muted object-cover object-center"
           />
         </Link>
       ) : null}
@@ -212,10 +237,14 @@ export function PostCard({
               ) : (
                 <Bookmark className="h-4 w-4" aria-hidden="true" />
               )}
-              <span className="ml-2 hidden sm:inline">{saved ? "Saved" : "Save"}</span>
+              <span className="ml-2 hidden sm:inline">
+                {saved ? "Saved" : "Save"}
+              </span>
             </Button>
           </TooltipTrigger>
-          <TooltipContent>{saved ? "Remove from saved posts" : "Save this post"}</TooltipContent>
+          <TooltipContent>
+            {saved ? "Remove from saved posts" : "Save this post"}
+          </TooltipContent>
         </Tooltip>
       </div>
 
@@ -224,8 +253,9 @@ export function PostCard({
           <AlertDialogHeader>
             <AlertDialogTitle>Delete this post?</AlertDialogTitle>
             <AlertDialogDescription>
-              “{post.title}” and all of its comments will be permanently removed. Deleting a post
-              does not give you an extra post for today.
+              “{post.title}” and all of its comments will be permanently
+              removed. Deleting a post does not give you an extra post for
+              today.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
