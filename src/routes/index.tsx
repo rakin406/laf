@@ -32,7 +32,7 @@ import {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "AIUB Lost & Found — Report and recover items on campus" },
+      { title: "AIUB Lost & Found" },
       {
         name: "description",
         content:

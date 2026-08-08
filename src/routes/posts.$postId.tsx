@@ -14,7 +14,7 @@ import { fetchCategories, fetchPost } from "@/lib/queries";
 export const Route = createFileRoute("/posts/$postId")({
   head: () => ({
     meta: [
-      { title: "Lost item details — AIUB Lost & Found" },
+      { title: "Lost item details" },
       {
         name: "description",
         content:
@@ -22,7 +22,7 @@ export const Route = createFileRoute("/posts/$postId")({
       },
       {
         property: "og:title",
-        content: "Lost item details — AIUB Lost & Found",
+        content: "Lost item details",
       },
       {
         property: "og:description",

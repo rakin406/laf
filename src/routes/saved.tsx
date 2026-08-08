@@ -1,11 +1,14 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
+import { createFileRoute } from "@tanstack/react-router";
 import { Bookmark } from "lucide-react";
 import { useMemo } from "react";
-
 import { AppShell, RequireAuth } from "@/components/layout/AppShell";
-import { EmptyState, ErrorState, PostSkeletonList } from "@/components/shared/States";
 import { PostCard } from "@/components/posts/PostCard";
+import {
+  EmptyState,
+  ErrorState,
+  PostSkeletonList,
+} from "@/components/shared/States";
 import { useAuth } from "@/hooks/useAuth";
 import { friendlyError } from "@/lib/domain";
 import { fetchBookmarkedPosts, fetchCategories } from "@/lib/queries";
@@ -13,10 +16,16 @@ import { fetchBookmarkedPosts, fetchCategories } from "@/lib/queries";
 export const Route = createFileRoute("/saved")({
   head: () => ({
     meta: [
-      { title: "Saved posts — AIUB Lost & Found" },
-      { name: "description", content: "The lost-and-found posts you bookmarked to follow up on." },
-      { property: "og:title", content: "Saved posts — AIUB Lost & Found" },
-      { property: "og:description", content: "Your bookmarked AIUB lost-and-found posts." },
+      { title: "Saved posts" },
+      {
+        name: "description",
+        content: "The lost-and-found posts you bookmarked to follow up on.",
+      },
+      { property: "og:title", content: "Saved posts" },
+      {
+        property: "og:description",
+        content: "Your bookmarked AIUB lost-and-found posts.",
+      },
     ],
   }),
   component: () => (
@@ -32,9 +41,15 @@ function SavedPosts() {
   const { user, profile, isAdmin } = useAuth();
   const userId = user?.id ?? "";
 
-  const categoriesQuery = useQuery({ queryKey: ["categories"], queryFn: fetchCategories });
+  const categoriesQuery = useQuery({
+    queryKey: ["categories"],
+    queryFn: fetchCategories,
+  });
   const labels = useMemo(
-    () => new Map((categoriesQuery.data ?? []).map((item) => [item.slug, item.label])),
+    () =>
+      new Map(
+        (categoriesQuery.data ?? []).map((item) => [item.slug, item.label]),
+      ),
     [categoriesQuery.data],
   );
 
@@ -51,7 +66,10 @@ function SavedPosts() {
       {savedQuery.isLoading ? (
         <PostSkeletonList count={2} />
       ) : savedQuery.isError ? (
-        <ErrorState message={friendlyError(savedQuery.error)} onRetry={() => void savedQuery.refetch()} />
+        <ErrorState
+          message={friendlyError(savedQuery.error)}
+          onRetry={() => void savedQuery.refetch()}
+        />
       ) : (savedQuery.data?.length ?? 0) === 0 ? (
         <EmptyState
           icon={Bookmark}

@@ -1,8 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
+import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { toast } from "sonner";
-
 import { AppShell, RequireAuth } from "@/components/layout/AppShell";
 import { UserAvatar } from "@/components/shared/UserAvatar";
 import { Button } from "@/components/ui/button";
@@ -13,10 +12,16 @@ import { friendlyError } from "@/lib/domain";
 export const Route = createFileRoute("/admin")({
   head: () => ({
     meta: [
-      { title: "Moderation — AIUB Lost & Found" },
-      { name: "description", content: "Moderate students, posts and comments on the board." },
-      { property: "og:title", content: "Moderation — AIUB Lost & Found" },
-      { property: "og:description", content: "Admin moderation tools for AIUB Lost & Found." },
+      { title: "Moderation" },
+      {
+        name: "description",
+        content: "Moderate students, posts and comments on the board.",
+      },
+      { property: "og:title", content: "Moderation" },
+      {
+        property: "og:description",
+        content: "Admin moderation tools for AIUB Lost & Found.",
+      },
     ],
   }),
   component: () => (
@@ -71,15 +76,17 @@ function AdminDashboard() {
   }
 
   const rows = (usersQuery.data ?? []).filter((row) =>
-    `${row.full_name} ${row.email}`.toLowerCase().includes(search.trim().toLowerCase()),
+    `${row.full_name} ${row.email}`
+      .toLowerCase()
+      .includes(search.trim().toLowerCase()),
   );
 
   return (
     <div className="space-y-5 py-2">
       <h1 className="text-2xl font-semibold tracking-tight">Moderation</h1>
       <p className="text-sm text-muted-foreground">
-        Suspend accounts that break community rules. Suspended students can still read the board but
-        cannot post, comment or save.
+        Suspend accounts that break community rules. Suspended students can
+        still read the board but cannot post, comment or save.
       </p>
 
       <Input
@@ -94,14 +101,23 @@ function AdminDashboard() {
         {usersQuery.isLoading ? (
           <p className="p-5 text-sm text-muted-foreground">Loading students…</p>
         ) : rows.length === 0 ? (
-          <p className="p-5 text-sm text-muted-foreground">No students match that search.</p>
+          <p className="p-5 text-sm text-muted-foreground">
+            No students match that search.
+          </p>
         ) : (
           rows.map((row) => (
             <div key={row.id} className="flex items-center gap-3 p-4">
-              <UserAvatar name={row.full_name} avatarUrl={row.avatar_url} seed={row.id} size="sm" />
+              <UserAvatar
+                name={row.full_name}
+                avatarUrl={row.avatar_url}
+                seed={row.id}
+                size="sm"
+              />
               <div className="min-w-0 flex-1">
                 <p className="truncate text-sm font-medium">{row.full_name}</p>
-                <p className="truncate text-xs text-muted-foreground">{row.email}</p>
+                <p className="truncate text-xs text-muted-foreground">
+                  {row.email}
+                </p>
               </div>
               <Button
                 variant={row.is_banned ? "outline" : "destructive"}

@@ -1,13 +1,12 @@
-import { useMemo, useState } from "react";
-import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
+import { createFileRoute } from "@tanstack/react-router";
 import { Loader2, PackageSearch } from "lucide-react";
+import { useMemo, useState } from "react";
 import { toast } from "sonner";
-
 import { AppShell, RequireAuth } from "@/components/layout/AppShell";
-import { EmptyState, PostSkeletonList } from "@/components/shared/States";
 import { PostCard } from "@/components/posts/PostCard";
 import { PostFormDialog } from "@/components/posts/PostFormDialog";
+import { EmptyState, PostSkeletonList } from "@/components/shared/States";
 import { UserAvatar } from "@/components/shared/UserAvatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -15,16 +14,26 @@ import { Label } from "@/components/ui/label";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { friendlyError, fullNameSchema } from "@/lib/domain";
+import {
+  fetchCategories,
+  fetchPostsPage,
+  type PostWithMeta,
+} from "@/lib/queries";
 import { uploadImage } from "@/lib/upload-client";
-import { fetchCategories, fetchPostsPage, type PostWithMeta } from "@/lib/queries";
 
 export const Route = createFileRoute("/settings")({
   head: () => ({
     meta: [
-      { title: "Your profile — AIUB Lost & Found" },
-      { name: "description", content: "Update your display name, photo and manage your posts." },
-      { property: "og:title", content: "Your profile — AIUB Lost & Found" },
-      { property: "og:description", content: "Manage your AIUB Lost & Found profile and posts." },
+      { title: "Your profile" },
+      {
+        name: "description",
+        content: "Update your display name, photo and manage your posts.",
+      },
+      { property: "og:title", content: "Your profile" },
+      {
+        property: "og:description",
+        content: "Manage your AIUB Lost & Found profile and posts.",
+      },
     ],
   }),
   component: () => (
@@ -44,9 +53,15 @@ function Settings() {
   const [uploading, setUploading] = useState(false);
   const [editing, setEditing] = useState<PostWithMeta | null>(null);
 
-  const categoriesQuery = useQuery({ queryKey: ["categories"], queryFn: fetchCategories });
+  const categoriesQuery = useQuery({
+    queryKey: ["categories"],
+    queryFn: fetchCategories,
+  });
   const labels = useMemo(
-    () => new Map((categoriesQuery.data ?? []).map((item) => [item.slug, item.label])),
+    () =>
+      new Map(
+        (categoriesQuery.data ?? []).map((item) => [item.slug, item.label]),
+      ),
     [categoriesQuery.data],
   );
 
@@ -84,7 +99,10 @@ function Settings() {
       const uploaded = await uploadImage(file, "avatars");
       const { error } = await supabase
         .from("profiles")
-        .update({ avatar_url: uploaded.url, avatar_public_id: uploaded.publicId })
+        .update({
+          avatar_url: uploaded.url,
+          avatar_public_id: uploaded.publicId,
+        })
         .eq("id", userId);
       if (error) throw error;
       await refreshProfile();
@@ -109,7 +127,10 @@ function Settings() {
             size="lg"
           />
           <div>
-            <Label htmlFor="avatar" className="cursor-pointer text-sm font-medium underline">
+            <Label
+              htmlFor="avatar"
+              className="cursor-pointer text-sm font-medium underline"
+            >
               {uploading ? "Uploading…" : "Change photo"}
             </Label>
             <input
