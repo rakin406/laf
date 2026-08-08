@@ -1,13 +1,16 @@
-import { useMemo, useState } from "react";
-import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
+import { createFileRoute } from "@tanstack/react-router";
 import { PackageSearch, Search, X } from "lucide-react";
-
+import { useMemo, useState } from "react";
 import { AppShell, RequireAuth } from "@/components/layout/AppShell";
-import { AdSlot } from "@/components/shared/AdSlot";
-import { EmptyState, ErrorState, PostSkeletonList } from "@/components/shared/States";
 import { PostCard } from "@/components/posts/PostCard";
 import { PostFormDialog } from "@/components/posts/PostFormDialog";
+// import { AdSlot } from "@/components/shared/AdSlot";
+import {
+  EmptyState,
+  ErrorState,
+  PostSkeletonList,
+} from "@/components/shared/States";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -70,7 +73,10 @@ function Feed() {
   const [page, setPage] = useState(0);
   const [editing, setEditing] = useState<PostWithMeta | null>(null);
 
-  const categoriesQuery = useQuery({ queryKey: ["categories"], queryFn: fetchCategories });
+  const categoriesQuery = useQuery({
+    queryKey: ["categories"],
+    queryFn: fetchCategories,
+  });
   const categories = categoriesQuery.data ?? [];
   const labels = useMemo(
     () => new Map(categories.map((item) => [item.slug, item.label])),
@@ -101,7 +107,9 @@ function Feed() {
   return (
     <div className="space-y-6">
       <section className="surface-panel p-6">
-        <h1 className="text-2xl font-semibold tracking-tight">Campus lost &amp; found</h1>
+        <h1 className="text-2xl font-semibold tracking-tight">
+          Campus lost &amp; found
+        </h1>
         <p className="mt-1 text-sm text-muted-foreground">
           Everything reported by verified AIUB students, newest first.
         </p>
@@ -163,7 +171,12 @@ function Feed() {
           <div className="flex gap-2">
             <Button type="submit">Search</Button>
             {hasFilters ? (
-              <Button type="button" variant="ghost" onClick={resetFilters} aria-label="Clear filters">
+              <Button
+                type="button"
+                variant="ghost"
+                onClick={resetFilters}
+                aria-label="Clear filters"
+              >
                 <X className="h-4 w-4" />
               </Button>
             ) : null}
@@ -171,7 +184,7 @@ function Feed() {
         </form>
       </section>
 
-      <AdSlot id="feed-top" />
+      {/* <AdSlot id="feed-top" /> */}
 
       {postsQuery.isLoading ? (
         <PostSkeletonList />
@@ -190,7 +203,13 @@ function Feed() {
               : "Be the first to report a lost item — you can publish one post per day."
           }
           {...(hasFilters
-            ? { action: <Button variant="outline" onClick={resetFilters}>Clear filters</Button> }
+            ? {
+              action: (
+                <Button variant="outline" onClick={resetFilters}>
+                  Clear filters
+                </Button>
+              ),
+            }
             : {})}
         />
       ) : (
@@ -220,7 +239,8 @@ function Feed() {
             Previous
           </Button>
           <span className="text-sm text-muted-foreground">
-            Page {page + 1} of {Math.ceil((postsQuery.data?.total ?? 0) / POSTS_PAGE_SIZE)}
+            Page {page + 1} of{" "}
+            {Math.ceil((postsQuery.data?.total ?? 0) / POSTS_PAGE_SIZE)}
           </span>
           <Button
             variant="outline"
