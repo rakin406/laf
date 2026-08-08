@@ -1,0 +1,10 @@
+REVOKE EXECUTE ON FUNCTION public.set_updated_at() FROM anon, authenticated;
+REVOKE EXECUTE ON FUNCTION public.handle_new_user() FROM anon, authenticated;
+REVOKE EXECUTE ON FUNCTION public.guard_profile_update() FROM anon, authenticated;
+REVOKE EXECUTE ON FUNCTION public.validate_post() FROM anon, authenticated;
+REVOKE EXECUTE ON FUNCTION public.validate_comment() FROM anon, authenticated;
+REVOKE EXECUTE ON FUNCTION public.reserve_daily_quota() FROM anon, authenticated;
+REVOKE EXECUTE ON FUNCTION public.is_banned(uuid) FROM anon;
+REVOKE EXECUTE ON FUNCTION public.is_active_member(uuid) FROM anon;
+REVOKE EXECUTE ON FUNCTION public.has_role(uuid, public.app_role) FROM anon;
+REVOKE EXECUTE ON FUNCTION public.dhaka_today() FROM anon;

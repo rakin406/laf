@@ -1,0 +1,245 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * AIUB Lost & Found design system.
+ * Brand palettes are raw scales; semantic tokens map onto them.
+ */
+
+:root {
+  /* Twilight Indigo */
+  --color-twilight-indigo-50: #edf0f7;
+  --color-twilight-indigo-100: #dbe0f0;
+  --color-twilight-indigo-200: #b7c2e1;
+  --color-twilight-indigo-300: #93a3d2;
+  --color-twilight-indigo-400: #6f84c3;
+  --color-twilight-indigo-500: #4b65b4;
+  --color-twilight-indigo-600: #3c5190;
+  --color-twilight-indigo-700: #2d3d6c;
+  --color-twilight-indigo-800: #1e2948;
+  --color-twilight-indigo-900: #0f1424;
+  --color-twilight-indigo-950: #0b0e19;
+
+  /* Raspberry */
+  --color-raspberry-50: #fbe9eb;
+  --color-raspberry-100: #f8d3d7;
+  --color-raspberry-200: #f0a8af;
+  --color-raspberry-300: #e97c87;
+  --color-raspberry-400: #e1515f;
+  --color-raspberry-500: #da2537;
+  --color-raspberry-600: #ae1e2c;
+  --color-raspberry-700: #831621;
+  --color-raspberry-800: #570f16;
+  --color-raspberry-900: #2c070b;
+  --color-raspberry-950: #1f0508;
+
+  /* Pearl Aqua */
+  --color-pearl-aqua-50: #ebfafa;
+  --color-pearl-aqua-100: #d6f4f5;
+  --color-pearl-aqua-200: #adeaeb;
+  --color-pearl-aqua-300: #85dfe0;
+  --color-pearl-aqua-400: #5cd4d6;
+  --color-pearl-aqua-500: #33c9cc;
+  --color-pearl-aqua-600: #29a1a3;
+  --color-pearl-aqua-700: #1f797a;
+  --color-pearl-aqua-800: #145152;
+  --color-pearl-aqua-900: #0a2829;
+  --color-pearl-aqua-950: #071c1d;
+
+  /* Soft Blush */
+  --color-soft-blush-50: #ffeae5;
+  --color-soft-blush-100: #ffd5cc;
+  --color-soft-blush-200: #ffaa99;
+  --color-soft-blush-300: #ff7f66;
+  --color-soft-blush-400: #ff5533;
+  --color-soft-blush-500: #ff2b00;
+  --color-soft-blush-600: #cc2200;
+  --color-soft-blush-700: #991900;
+  --color-soft-blush-800: #661100;
+  --color-soft-blush-900: #330900;
+  --color-soft-blush-950: #240600;
+
+  /* Peach Glow */
+  --color-peach-glow-50: #fff3e5;
+  --color-peach-glow-100: #ffe7cc;
+  --color-peach-glow-200: #ffcf99;
+  --color-peach-glow-300: #ffb866;
+  --color-peach-glow-400: #ffa033;
+  --color-peach-glow-500: #ff8800;
+  --color-peach-glow-600: #cc6d00;
+  --color-peach-glow-700: #995200;
+  --color-peach-glow-800: #663600;
+  --color-peach-glow-900: #331b00;
+  --color-peach-glow-950: #241300;
+
+  --radius: 0.75rem;
+
+  --background: #f7f8fc;
+  --foreground: var(--color-twilight-indigo-900);
+  --card: #ffffff;
+  --card-foreground: var(--color-twilight-indigo-900);
+  --popover: #ffffff;
+  --popover-foreground: var(--color-twilight-indigo-900);
+  --primary: var(--color-twilight-indigo-600);
+  --primary-foreground: #ffffff;
+  --secondary: var(--color-twilight-indigo-50);
+  --secondary-foreground: var(--color-twilight-indigo-700);
+  --muted: var(--color-twilight-indigo-50);
+  --muted-foreground: #5b6685;
+  --accent: var(--color-pearl-aqua-100);
+  --accent-foreground: var(--color-pearl-aqua-800);
+  --destructive: var(--color-raspberry-600);
+  --destructive-foreground: #ffffff;
+  --success: var(--color-pearl-aqua-700);
+  --warning: var(--color-peach-glow-600);
+  --border: var(--color-twilight-indigo-100);
+  --input: var(--color-twilight-indigo-200);
+  --ring: var(--color-twilight-indigo-500);
+  --chart-1: var(--color-twilight-indigo-500);
+  --chart-2: var(--color-pearl-aqua-500);
+  --chart-3: var(--color-peach-glow-500);
+  --chart-4: var(--color-raspberry-500);
+  --chart-5: var(--color-twilight-indigo-300);
+  --sidebar: #ffffff;
+  --sidebar-foreground: var(--color-twilight-indigo-900);
+  --sidebar-primary: var(--color-twilight-indigo-600);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: var(--color-twilight-indigo-50);
+  --sidebar-accent-foreground: var(--color-twilight-indigo-700);
+  --sidebar-border: var(--color-twilight-indigo-100);
+  --sidebar-ring: var(--color-twilight-indigo-500);
+}
+
+.dark {
+  --background: var(--color-twilight-indigo-950);
+  --foreground: #eef1f8;
+  --card: var(--color-twilight-indigo-900);
+  --card-foreground: #eef1f8;
+  --popover: var(--color-twilight-indigo-900);
+  --popover-foreground: #eef1f8;
+  --primary: var(--color-twilight-indigo-400);
+  --primary-foreground: var(--color-twilight-indigo-950);
+  --secondary: var(--color-twilight-indigo-800);
+  --secondary-foreground: #dbe0f0;
+  --muted: var(--color-twilight-indigo-800);
+  --muted-foreground: #9aa5c4;
+  --accent: var(--color-pearl-aqua-900);
+  --accent-foreground: var(--color-pearl-aqua-200);
+  --destructive: var(--color-raspberry-500);
+  --destructive-foreground: #ffffff;
+  --success: var(--color-pearl-aqua-400);
+  --warning: var(--color-peach-glow-400);
+  --border: #26314f;
+  --input: #2f3b5c;
+  --ring: var(--color-twilight-indigo-400);
+  --sidebar: var(--color-twilight-indigo-900);
+  --sidebar-foreground: #eef1f8;
+  --sidebar-primary: var(--color-twilight-indigo-400);
+  --sidebar-primary-foreground: var(--color-twilight-indigo-950);
+  --sidebar-accent: var(--color-twilight-indigo-800);
+  --sidebar-accent-foreground: #dbe0f0;
+  --sidebar-border: #26314f;
+  --sidebar-ring: var(--color-twilight-indigo-400);
+}
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+
+  --font-display: "Sora", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --color-indigo-50: var(--color-twilight-indigo-50);
+  --color-indigo-500: var(--color-twilight-indigo-500);
+  --color-indigo-600: var(--color-twilight-indigo-600);
+  --color-aqua-500: var(--color-pearl-aqua-500);
+  --color-aqua-700: var(--color-pearl-aqua-700);
+  --color-peach-500: var(--color-peach-glow-500);
+  --color-raspberry-500: var(--color-raspberry-500);
+  --color-raspberry-600: var(--color-raspberry-600);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  .font-display {
+    font-family: var(--font-display);
+    letter-spacing: -0.015em;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
+  }
+}
+
+@utility surface-panel {
+  background-color: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+@utility brand-hero {
+  background-image: linear-gradient(
+    135deg,
+    var(--color-twilight-indigo-700),
+    var(--color-twilight-indigo-500) 60%,
+    var(--color-pearl-aqua-700)
+  );
+  color: #ffffff;
+}
